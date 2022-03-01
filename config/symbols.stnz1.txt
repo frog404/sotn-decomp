@@ -1,0 +1,2 @@
+PfnEntityUpdates = 0x801809C4;
+DestroyEntity = 0x801AFB1C;

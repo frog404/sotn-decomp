@@ -1,0 +1,27 @@
+options:
+  platform:     psx
+  basename:     stnz1
+  base_path:    .
+  target_path:  ST/NZ1.BIN
+  asm_path:     asm/st/nz1
+  asset_path:   assets/st/nz1
+  src_path:     src/st/nz1
+  compiler:     GCC
+  symbol_addrs_path:    config/generated.symbols.stnz1.txt
+  undefined_syms_path:  config/undefined_syms.stnz1.txt
+  undefined_funcs_auto_path: config/undefined_funcs_auto.stnz1.txt
+  undefined_syms_auto_path:  config/undefined_syms_auto.stnz1.txt
+  find_file_boundaries: yes
+  enable_ld_alignment_hack: yes
+  use_legacy_include_asm: no
+segments:
+  - name: stnz1
+    type: code
+    start: 0x00000000
+    vram:  0x80180000
+    subalign: 4
+    subsegments:
+      - [0x0, data]
+      - [0x25D38, c]
+      - [0x41680, data]
+  - [0x423401]

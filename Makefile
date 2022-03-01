@@ -62,7 +62,7 @@ define link
 		-s
 endef
 
-all: main dra dre mad no3 np3 st0 wrp rwrp
+all: main dra dre mad no3 np3 nz1 st0 wrp rwrp
 	sha1sum --check slus00067.sha
 clean:
 	rm -rf $(BUILD_DIR)
@@ -105,6 +105,10 @@ np3: stnp3_dirs $(BUILD_DIR)/NP3.BIN
 $(BUILD_DIR)/NP3.BIN: $(BUILD_DIR)/stnp3.elf
 	$(OBJCOPY) -O binary $< $@
 
+nz1: stnz1_dirs $(BUILD_DIR)/NZ1.BIN
+$(BUILD_DIR)/NZ1.BIN: $(BUILD_DIR)/stnz1.elf
+	$(OBJCOPY) -O binary $< $@
+
 st0: stst0_dirs $(BUILD_DIR)/ST0.BIN
 $(BUILD_DIR)/ST0.BIN: $(BUILD_DIR)/stst0.elf
 	$(OBJCOPY) -O binary $< $@
@@ -125,7 +129,7 @@ st%_dirs:
 $(BUILD_DIR)/st%.elf: $$(call list_o_files,st/$$*)
 	$(call link,st$*,$@)
 
-extract: extract_main extract_dra extract_stdre extract_stmad extract_stno3 extract_stnp3 extract_stst0 extract_stwrp extract_strwrp
+extract: extract_main extract_dra extract_stdre extract_stmad extract_stno3 extract_stnp3 extract_stnz1 extract_stst0 extract_stwrp extract_strwrp
 extract_main: $(SPLAT_DIR)
 	$(SPLAT) --basedir . $(CONFIG_DIR)/splat.$(MAIN).yaml
 extract_dra: $(SPLAT_DIR)
@@ -152,6 +156,6 @@ $(BUILD_DIR)/%.c.s: %.c
 SHELL = /bin/bash -e -o pipefail
 
 .PHONY: all, clean
-.PHONY: main, dra, dre, mad, no3, np3, st0, wrp, rwrp
+.PHONY: main, dra, dre, mad, no3, np3, nz1, st0, wrp, rwrp
 .PHONY: %_dirs
 .PHONY: extract, extract_%
