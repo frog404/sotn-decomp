@@ -29,7 +29,7 @@ The game is divided in three modules:
 
 ## Build
 
-1. You need `gcc-mipsel-linux-gnu` that you can easily install on any Debian-based Linux distribution. On Windows it is highly recommended to just use Ubuntu with WSL
+1. You need `gcc-mipsel-linux-gnu` and `dos2unix` that you can easily install on any Debian-based Linux distribution. On Windows it is highly recommended to just use Ubuntu with WSL
 1. Copy the game's data from your SOTN game copy into a new folder in the root directory of the repository called `iso`
 1. Run `make extract` to generate the assembly files
 1. Run `make all` to compile the binaries into the `build/` directory

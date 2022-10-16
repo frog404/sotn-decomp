@@ -5,9 +5,14 @@
 MAIN            := main
 DRA             := dra
 
+# PSY-Q
+PSYQVER := 4.6
+PSYQ    := docker run --rm -w /work -v ${PWD}:/work xeeynamo/psyq:$(PSYQVER) wine
+ASPSX   := $(PSYQ) /app/ASPSX.EXE
+
 # Compilers
 CROSS           := mipsel-linux-gnu-
-AS              := $(CROSS)as
+AS              := $(ASPSX)
 CC              := ./bin/cc1-26
 LD              := $(CROSS)ld
 CPP				:= $(CROSS)cpp
@@ -227,12 +232,16 @@ $(M2C_APP):
 	git submodule update $(M2C_DIR)
 	python3 -m pip install --upgrade pycparser
 
-$(BUILD_DIR)/%.s.o: %.s
-	$(AS) $(AS_FLAGS) -o $@ $<
+macro.inc:
+	touch macro.inc
+$(BUILD_DIR)/%.s.o: %.s macro.inc
+	unix2dos -q $<
+	$(AS) -o $@ $<
 $(BUILD_DIR)/%.bin.o: %.bin
 	$(LD) -r -b binary -o $@ $<
 $(BUILD_DIR)/%.c.o: $(BUILD_DIR)/%.c.s
-	$(AS) $(AS_FLAGS) -o $@ $<
+	unix2dos -q $<
+	$(AS) -o $@ $<
 $(BUILD_DIR)/%.c.s: %.c
 	$(CPP) $(CPP_FLAGS) $< | $(CC) $(CC_FLAGS) -o $@
 

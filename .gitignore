@@ -8,6 +8,7 @@ iso/
 
 ctx.c
 ctx.c.m2c
+/macro.inc
 *.ld
 *auto.*.txt
 generated.symbols.*.txt
